@@ -1,17 +1,16 @@
-﻿#if NET461
-using System;
+﻿using System;
 using System.Reflection;
-#else
-using System;
-using System.Reflection;
+
+#if !NET461
 using System.Linq;
 #endif
 
 namespace Dapper.TableValuedParameter.Extensions
 {
-#if NET461
+
     public static class TypeExtensions
     {
+#if NET461
         public static Assembly Assembly(this Type type)
         {
             return type.Assembly;
@@ -21,11 +20,8 @@ namespace Dapper.TableValuedParameter.Extensions
         {
             return type.IsValueType;
         }
-    }
-
 #else
-    public static class TypeExtensions
-    {
+
         public static Assembly Assembly(this Type type)
         {
             return type.GetTypeInfo().Assembly;
@@ -34,8 +30,8 @@ namespace Dapper.TableValuedParameter.Extensions
         public static bool IsValueType(this Type type)
         {
             return type.GetTypeInfo().IsValueType;
-        }
-    }
-#endif
 
+        }
+#endif
+    }
 }
